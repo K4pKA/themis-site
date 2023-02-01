@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{{ title }}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="/">Themis</a></div>
+				<a href="#menu">Меню</a>
+			</header>
+
+		<!-- Nav -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/">Главная</a></li>
+					<li><a href="/download">Скачать</a></li>
+					<li><a href="/login">Войти</a></li>
+				</ul>
+			</nav>
+
+		<!-- One -->
+			<section id="One" class="wrapper style3">
+				<div class="inner">
+					<header class="align-center">
+						<p>{{ subtitle_page }}</p>
+						<h2>{{ title_page }}</h2>
+					</header>
+				</div>
+			</section>
+
+		<!-- Two -->
+			<section id="two" class="wrapper style2">
+				<div class="inner">
+					<div class="box">
+						<div class="content">
+							{% block content %}{% endblock %}
+						</div>
+					</div>
+				</div>
+			</section>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="https://vk.com/alexsandros12" class="icon fa-vk"><span class="label">VK</span></a></li>
+						<li><a href="https://amazing-online.com/" class="icon fa-home"><span class="label">Home</span></a></li>
+						<li><a href="https://yoomoney.ru/fundraise/oHJPAQIoqB8.230131" class="icon fa-credit-card"><span class="label">Donate</span></a></li>
+					</ul>
+				</div>
+				<div class="copyright">
+					&copy; Themis. 2023
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static',filename='js/jquery.scrollex.min.js') }}"></script>
+			<script src="{{ url_for('static',filename='js/skel.min.js') }}"></script>
+			<script src="{{ url_for('static',filename='js/util.js') }}"></script>
+			<script src="{{ url_for('static',filename='js/main.js') }}"></script>
+
+	</body>
+</html>

@@ -1,19 +1,30 @@
 {% extends "generic.html" %}
 
 {% block content %}
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username(size=32) }}
-        </p>
-        <p>
-            {{ form.password.label }}<br>
-            {{ form.password(size=32) }}
-        </p>
 
-        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-        <p> {{ form.captcha() }}</p>
-        <p>{{ form.submit() }}</p>
-    </form>
+<form method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.login.label }}<br>
+        {{ form.login(size=32) }}
+    </p>
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(size=32) }}
+    </p><br>
+
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="alt">
+    {% for message in messages %}
+      <li style="color: #c70000;">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    <br>
+    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+    <p></p>
+    <p>{{ form.submit() }}</p>
+</form>
 {% endblock %}

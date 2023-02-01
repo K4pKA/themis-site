@@ -5,7 +5,7 @@ from flask_wtf.recaptcha import RecaptchaField
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Имя пользователя', validators=[DataRequired()])
+    login = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Авторизация')

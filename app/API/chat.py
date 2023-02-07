@@ -14,7 +14,7 @@ from app.API.errors import bad_request
 @bp.route('/get_last_line', methods=['GET'])
 def get_last_line():
     chat = Chatlog(datetime.datetime.now().strftime("%d-%m-%Y"))
-    return jsonify({"message": chat.text_to_html(chat.get_last_line()),"status_code": 201})
+    return jsonify({"message": chat.text_to_html(chat.get_last_line()), "status_code": 201})
 
 
 @bp.route('/send_chat', methods=['POST'])

@@ -30,6 +30,8 @@ class Article(db.Model):
     content = db.Column(db.Text)
     timestamp = db.Column(db.DateTime)
     likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
+    rating = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     last_edition_timestamp = db.Column(db.DateTime)
     last_edition_user_ud = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -67,8 +69,8 @@ class AnswerComment(db.Model):
 
 class License(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     HWID = db.Column(db.String)
+    CDiskHWID = db.Column(db.String)
     date_end = db.Column(db.DateTime)
     key = db.Column(db.String)
 

@@ -7,6 +7,7 @@ class Chatlog:
 
     def __init__(self, date):
         self.file = f"app/API/chatlogs/{date}.txt"
+        self.ll_file = "app/API/chatlogs/ll.txt"
 
     def check_chatlog(self):
         if not os.path.exists(self.file):
@@ -17,17 +18,19 @@ class Chatlog:
     def add_line(self, content):
         self.check_chatlog()
         f = open(self.file, "a")
-        timestamp = datetime.datetime.now().strftime("%H-%M-%S")
-        cont = "[{0}] {1}\n".format(timestamp, content)
+        cont = "{0}\n".format(content)
         f.write(cont)
+        p = open(self.ll_file, "w")
+        p.write(content)
         return cont
 
     def add_line_nickname(self, nickname, content):
         self.check_chatlog()
         f = open(self.file, "a")
-        timestamp = datetime.datetime.now().strftime("%H-%M-%S")
-        content = "[{0}] {1}: {2}\n".format(timestamp, nickname, content)
-        f.write(content)
+        cont = "{0}: {1}\n".format(nickname, content)
+        f.write(cont)
+        p = open(self.ll_file, "w")
+        p.write(content)
         return content
 
     def get_last_line(self):

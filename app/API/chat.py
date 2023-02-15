@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
+import base64
 import datetime
 import codecs
+import json
+
 import chardet
 
 from flask import jsonify
 from flask import request
+
 
 from app.API import bp
 from app.API.chatlogs.chatlog import Chatlog
@@ -24,7 +28,6 @@ def send_chat():
         content = str(data["content"].encode("iso-8859-1"), "cp1251")
     else:
         content = data["content"]
-
     if "content" not in data:
         return bad_request("Incorrect data")
     if len(content) > 70:
@@ -39,9 +42,26 @@ def send_chat():
         r = chat.add_line_nickname(nickname, content)
     else:
         r = chat.add_line(content)
-    nickname = data["nickname"]
     response = {
         "message": chat.text_to_html(r),
         "status_code": 201
     }
     return jsonify(response)
+
+
+@bp.route('/v1.0/send_chat/<nickname>/<content>', methods=["GET"])
+def sn_chat(nickname, content):
+    chat = Chatlog(datetime.datetime.now().strftime("%d-%m-%Y"))
+    chat.add_line_nickname(nickname, content)
+    return jsonify({"status_code": 201})
+
+
+@bp.route('/auth_in_chat', methods=['POST'])
+def auth_chat():
+    data = request.get_json() or {}
+    chat = Chatlog(datetime.datetime.now().strftime("%d-%m-%Y"))
+    if data["type"] == 1:
+        chat.add_line("{0} авторизовался в чате.".format(data["nickname"]))
+    else:
+        chat.add_line("{0} вышел из чата.".format(data["nickname"]))
+    return jsonify({"status_code": 201})

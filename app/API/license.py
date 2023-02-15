@@ -36,10 +36,11 @@ def check_license():
     else:
         with open(file, "r") as f:
             d = json.load(f)
-        if d["HWID"] == HWID and d["DHWID"] == DHWID:
-            return jsonify({"message": "License correct", "status_code": 201})
+        if (d["HWID"] == HWID) and (int(d["DHWID"]) == (DHWID)):
+            return jsonify({"message": "License correct", "HWID": d["HWID"],
+                            "key": d["key"], "date_end": d["date_of_end"], "status_code": 201})
         else:
-            bad_request("License incorrect")
+            return bad_request("License incorrect")
 
 
 @bp.route('/activate_script', methods=['POST'])
@@ -55,8 +56,6 @@ def activate_license():
         else:
             with open(file, "r") as f:
                 d = json.load(f)
-                if d["HWID"] != "":
-                    bad_request("Bad key")
             if (d["HWID"] == "") and (d["DHWID"] == ""):
 
                 with open(file, "w") as f:
@@ -65,11 +64,11 @@ def activate_license():
                     d["DHWID"] = DHWID
 
                     json.dump(d, f)
-                return {"message": "License activate for " + HWID, "status_code": 201}
+                return {"message": "License activate for " + HWID, "status": 1, "status_code": 201}
             else:
-                bad_request("Wrong key")
+                return bad_request("Key is activated or not exists")
     except Exception:
-        bad_request("Data incorrect")
+        return bad_request("Data incorrect")
 
 
 @bp.route('/get_sounds', methods=['GET'])
